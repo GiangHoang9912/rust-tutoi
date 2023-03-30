@@ -552,6 +552,31 @@ fn learn_exec_command() {
     }
 }
 
+extern crate serde_json;
+use serde_json::Value as JsonValue;
+
+fn learn_json() {
+    let json = r#"{
+        "name": "Giang",
+        "age": 24,
+        "is_married": false,
+        "hobbies": ["coding", "reading", "writing"],
+        "address": {
+            "street": "123 Main St",
+            "city": "New York",
+            "state": "NY"
+        }
+    }"#;
+
+    let v: JsonValue = serde_json::from_str(json).unwrap();
+
+    println!("name: {}", v["name"]);
+    println!("age: {}", v["age"]);
+    println!("is_married: {}", v["is_married"]);
+    println!("hobbies: {}", v["hobbies"]);
+    println!("address: {}", v["address"]);
+}
+
 #[tokio::main]
 async fn main() {
     learn_params();
@@ -602,6 +627,7 @@ async fn main() {
     learn_http_request().await;
     learn_enums_methods();
     learn_exec_command();
+    learn_json();
 }
 
 #[cfg(test)]
